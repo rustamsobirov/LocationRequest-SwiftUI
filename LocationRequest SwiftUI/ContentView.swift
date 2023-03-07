@@ -2,22 +2,25 @@
 //  ContentView.swift
 //  LocationRequest SwiftUI
 //
-//  Created by iMac G1 on 06/03/23.
+//  Created by Sobirov on 06/03/23.
 //
 
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var locationManager = LocationManager.shared
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        Group{
+            if locationManager.userLocation == nil {
+                LocationRequestView()
+            }else if let location = locationManager.userLocation{
+                Text("\(location)")
+                    .padding()
+            }
         }
-        .padding()
     }
 }
+    
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
